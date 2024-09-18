@@ -6,7 +6,6 @@
   background-position: relative;
   background-size: cover;
   background-repeat: no-repeat;
-  
 }
 
 
@@ -80,5 +79,200 @@
   background-color: rgba(209, 28, 25, 1);
   transform: scale(1.1);
 
+}
+
+
+
+
+
+.title-container {
+  /* position: relative;
+  bottom: 400px;
+  right: 500px;
+  z-index: 1; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+  margin-right: 6px;
+  margin-top: 80px;
+
+
+
+} 
+
+.FlexFit_title {
+  position: relative;
+  
+  margin-top: 100px;
+
+  font-size: 6em;
+  color: rgb(255, 255, 255);
+  filter: brightness(100%);
+  font-family: 'Montserrat', system-ui;
+
+  word-spacing: 20%;
+  outline-width: 50px;
+  letter-spacing: 5px;
+
+
+
+  animation: fadeIn 2s forwards, scaleDown 1s forwards, textShadowAppear 0.5s 1s forwards;
+
+
+
+}
+
+@keyframes textShadowAppear {
+from {
+  text-shadow: none;
+}
+to  {
+  text-shadow: 5px 5px 20px #f78008;
+  }
+
+}
+
+
+
+
+@keyframes scaleDown {
+  0% {
+    transform: scale(1);
+
+  }
+  100% {
+    transform: scale(0.8);
+  }
+
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+
+  }
+  100% {
+    opacity: 1;
+  }
+
+}
+
+
+
+
+
+
+
+.desc-container {
+ 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  color: rgb(255, 255, 255);
+  font-size: 1em;
+ 
+  word-spacing: 100%;
+  
+  animation: scaleDown 2s forwards;
+} 
+
+
+.smalltitle-container{
+  position: relative;
+  font-size: large;
+  color: rgb(255, 255, 255);
+  font-family: 'Montserrat', system-ui;
+  font-size: 4em;
+  width: 800px;
+  text-shadow: 1px 5px 5px rgb(0, 0, 0);
+  margin-top: 00px;
+  
+
+
+} 
+
+
+
+
+.Gender-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1000px;
+  margin-bottom: 50px; /*adjust for spacing between containers*/
+  gap : 50px;
+}
+
+.Gender-container .custom-button {
+  width: 150px;
+  height: 150px;
+}
+
+.GoalType-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 100px;
+  margin-bottom: 20px;
+  gap: 50px;
+  
+}
+
+.WeightSelection-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.HeightSelection-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.GeneratePrompt-container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
+.custom-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  width : 200px;
+  height : 50px;
+}
+
+.response-box {
+  border: 2px solid #08f710; 
+  border-radius: 8px; 
+  padding: 16px; 
+  margin-top: 20px; 
+  background-color: #f9f9f9; 
+  color: #333; 
+  font-size: 16px; 
+  max-width: 500px;
+  margin-left: auto;
+  margin-right: auto; 
+  word-wrap: break-word; 
+  height: 900px;
+}
+
+.response-box ul {
+  list-style-type: disc;
+  padding-left: 20px;
+}
+
+.response-box strong {
+  font-weight: bold;
 }
 
