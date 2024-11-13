@@ -1,6 +1,6 @@
 function SmallTitle() {
     return (
-      <h1 className = "smalltitle" >The Future of Fitness.
+      <h1 className = "smalltitle" >Say goodbye to your standard workout plans.
       
 
       </h1>

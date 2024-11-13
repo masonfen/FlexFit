@@ -6,11 +6,14 @@ import Button from './components/Button';
 import TitleDesc from './components/TitleDesc';
 import FlexFit_Title from './components/FlexFit_Title';
 import SmallTitle from './components/SmallTitle';
+import SmallTitleInstructions from './components/SmallTitleInstructions';
 import WeightSelection from './components/WeightSelection';
 import FeetSelection from './components/FeetSelection';
 import InchSelection from './components/InchSelection';
 import apiKey from './components/apiKey';
 import AddEquipment from './components/AddEquipment';
+import ItemCarousel from './components/ItemCarousel';
+import ContactPopup from './components/ContactPopup';
 // CHATGPT import
  import { OpenAI } from 'openai';
 
@@ -22,18 +25,28 @@ function App() {
   //  GPT-4 interaction state management --> prompt and response
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
-
 //    ****State Management**** --> set new variabls that store their data
+  const [selectedGender, setSelectedGender] = useState(null);
+  const [selectedFocus, setSelectedFocus] = useState(null);
+  const [selectedWeight, setWeight] = useState('');
+  const [feet, setFeet] = useState('');
+  const [inch, setInch] = useState('');
+  const [selectedEquipment, setEquipment] = useState('')
 
-const [selectedGender, setSelectedGender] = useState(null);
 
-const [selectedFocus, setSelectedFocus] = useState(null);
+//define options for Item Carousel
+const genderOptions = [
+  { label: 'Male', value: 'male'},
+  { label: 'Female', value: 'female'},
+  { label: 'Other', value: 'other'},
+];
 
-const [selectedWeight, setWeight] = useState('');
-const [feet, setFeet] = useState('');
-const [inch, setInch] = useState('');
-
-const [selectedEquipment, setEquipment] = useState('')
+const focusOptions = [
+  { label: 'Build Muscle', value: 'hypertrophy'},
+  { label: 'Strength', value: 'strength'},
+  { label: 'Fat Loss', value: 'fatLoss'},
+  { label: 'Overall Health', value: 'overallHealth'},
+];
 
 
 
@@ -83,7 +96,7 @@ const [selectedEquipment, setEquipment] = useState('')
     `Give the best workout program for someone who is a ${selectedGender}, wants to focus their workout program towards ${selectedFocus}.
      They weigh about ${selectedWeight}, and their height is ${feet} feet, and ${inch} inches.
 
-    Make sure the program is geared towards, and specifically utilizes these
+    Make sure the program is geared towards, and specifically utilizes all these
     pieces of equipment and nothing else: ${selectedEquipment}, come up with creative ideas and titles for the workouts.
     
     
@@ -128,10 +141,14 @@ const [selectedEquipment, setEquipment] = useState('')
 
        />
        </div>
+
+       
        
         <div className = "desc-container"> 
         <TitleDesc />
         </div>
+
+       
 
 
         <div className = "title-container">    {/*eslint-disable-next-line*/}
@@ -143,36 +160,31 @@ const [selectedEquipment, setEquipment] = useState('')
       <section id = "aboutSection">
       <div className = "smalltitle-container">
       <SmallTitle />
+        <div className = "smalltitle-instructions-container">
+        <SmallTitleInstructions />
+       </div>
       </div>
+
+
       </section>
 
       {/* buttons for assigning gender roles */}
       <div className="Gender-container">
-        <Button label="Male" onClick={() => handleGenderSelection('male')}
-          style={{ backgroundColor: selectedGender === 'male' ? 'blue' : 'grey' }}
-        />
-        <Button label="Female" onClick={() => handleGenderSelection('female')}
-          style={{ backgroundColor: selectedGender === 'female' ? 'pink' : 'grey' }}
-        />
-
-        <Button label="Other" onClick={() => handleGenderSelection('female')}
-          style={{ backgroundColor: selectedGender === 'female' ? 'pink' : 'grey' }}
+        <h3> Select Gender</h3>
+        <ItemCarousel
+          items={genderOptions}
+          onSelect={handleGenderSelection}
+          selectedItem={selectedGender}
         />
       </div>
 
       {/* buttons for assigning goal type */}
       <div className="GoalType-container">
-        <Button label="Build Muscle" onClick={() => handleFocusSelection('hypertrophy')}
-          style={{ backgroundColor: selectedFocus === 'hypertrophy' ? 'red' : 'grey' }}
-        />
-        <Button label="Strength" onClick={() => handleFocusSelection('strength')}
-          style={{ backgroundColor: selectedFocus === 'strength' ? 'red' : 'grey' }}
-        />
-        <Button label="Fat Loss" onClick={() => handleFocusSelection('fatLoss')}
-          style={{ backgroundColor: selectedFocus === 'fatLoss' ? 'red' : 'grey' }}
-        />
-        <Button label="Overall health" onClick={() => handleFocusSelection('overallHealth')}
-          style={{ backgroundColor: selectedFocus === 'overallHealth' ? 'red' : 'grey' }}
+        <h3> Select Focus</h3>
+        <ItemCarousel
+          items={focusOptions}
+          onSelect={handleFocusSelection}
+          selectedItem={selectedFocus}
         />
       </div>
 
