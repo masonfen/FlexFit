@@ -13,7 +13,7 @@ import InchSelection from './components/InchSelection';
 import apiKey from './components/apiKey';
 import AddEquipment from './components/AddEquipment';
 import ItemCarousel from './components/ItemCarousel';
-import ContactPopup from './components/ContactPopup';
+// import ContactPopup from './components/ContactPopup';
 // CHATGPT import
  import { OpenAI } from 'openai';
 
