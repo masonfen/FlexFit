@@ -2,7 +2,7 @@
 
 .App {
   text-align: center;
-  background-color: rgb(34, 32, 32);
+  background-color: #3d3d3d ;
   background-position: relative;
   background-size: cover;
   background-repeat: no-repeat;
@@ -184,19 +184,7 @@ to  {
   flex-direction: column;
   align-items: center;
 }
-.smalltitle-container{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: rgb(255, 255, 255);
-  font-family: 'Montserrat', system-ui;
-  font-size: 1.3em;
- 
 
-  margin-top: 20px;
-  
-
-} 
 
 .smalltitle-instructions-container{
   
@@ -207,8 +195,35 @@ to  {
   height: 680px;
   width: 1000px;
   box-shadow: #ca2b2b 0px 0px 100px 0px;
-  margin-top: 150px;
+  margin-top: 300px;
   
+}
+
+.smalltitle-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 50;
+  font-family: 'Montserrat', system-ui;
+  font-size: 1.3em;
+
+} 
+
+.redtitle1{
+  color: #ca2b2b;
+}
+
+.white-text1{
+  color: white;
+}
+
+
+.betterdesc-container{
+  color: white;
+  margin-top: px;
+  font-size: 3em;
+  /* text-shadow: 10px 10px 12px black; */
 }
 
 

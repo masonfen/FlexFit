@@ -5,7 +5,7 @@ import './App.css';
 import Button from './components/Button';
 import TitleDesc from './components/TitleDesc';
 import FlexFit_Title from './components/FlexFit_Title';
-import SmallTitle from './components/SmallTitle';
+
 import SmallTitleInstructions from './components/SmallTitleInstructions';
 import WeightSelection from './components/WeightSelection';
 import FeetSelection from './components/FeetSelection';
@@ -13,6 +13,7 @@ import InchSelection from './components/InchSelection';
 import apiKey from './components/apiKey';
 import AddEquipment from './components/AddEquipment';
 import ItemCarousel from './components/ItemCarousel';
+import BetterDesc from './components/BetterDesc';
 // import ContactPopup from './components/ContactPopup';
 // CHATGPT import
  import { OpenAI } from 'openai';
@@ -157,16 +158,18 @@ const focusOptions = [
       </div>
       </div>
 
-      <section id = "aboutSection">
-      <div className = "smalltitle-container">
-      <SmallTitle />
-        <div className = "smalltitle-instructions-container">
-        <SmallTitleInstructions />
-       </div>
-      </div>
-
-
-      </section>
+      <section id="aboutSection">
+  <div class="betterdesc-container">
+    <BetterDesc />
+  </div>
+  <div class="smalltitle-container">
+    
+    
+    <div class="smalltitle-instructions-container">
+      <SmallTitleInstructions />
+    </div>
+  </div>
+</section>
 
       {/* buttons for assigning gender roles */}
       <div className="Gender-container">
