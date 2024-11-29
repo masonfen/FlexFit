@@ -1,60 +1,42 @@
-import React, { useState, useEffect, } from 'react';
+import React, { useState, useEffect } from 'react';
 import './App.css';
 
 // COMPONENTS 
 import Button from './components/Button';
 import TitleDesc from './components/TitleDesc';
 import FlexFit_Title from './components/FlexFit_Title';
-
 import SmallTitleInstructions from './components/SmallTitleInstructions';
-import WeightSelection from './components/WeightSelection';
-import FeetSelection from './components/FeetSelection';
-import InchSelection from './components/InchSelection';
+import SmallTitle from './components/SmallTitle';
 import apiKey from './components/apiKey';
-import AddEquipment from './components/AddEquipment';
-import ItemCarousel from './components/ItemCarousel';
 import BetterDesc from './components/BetterDesc';
-// import ContactPopup from './components/ContactPopup';
+import MultiStepForm from './components/MultiStepForm';
 // CHATGPT import
- import { OpenAI } from 'openai';
+import { OpenAI } from 'openai';
 
-//animation import
- import 'animate.css';
-
+// Emoji imports
+import LightningBoltEmoji from './components/LightningBoltEmoji';
+import MuscleEmoji from './components/MuscleEmoji';
+import GlobeEmoji from './components/GlobeEmoji';
+// Animation import
+import 'animate.css';
 
 function App() {
-  //  GPT-4 interaction state management --> prompt and response
+  // GPT-4 interaction state management --> prompt and response
   const [prompt, setPrompt] = useState('');
   const [response, setResponse] = useState('');
-//    ****State Management**** --> set new variabls that store their data
+  // ****State Management**** --> set new variables that store their data
   const [selectedGender, setSelectedGender] = useState(null);
   const [selectedFocus, setSelectedFocus] = useState(null);
   const [selectedWeight, setWeight] = useState('');
   const [feet, setFeet] = useState('');
   const [inch, setInch] = useState('');
-  const [selectedEquipment, setEquipment] = useState('')
-
-
-//define options for Item Carousel
-const genderOptions = [
-  { label: 'Male', value: 'male'},
-  { label: 'Female', value: 'female'},
-  { label: 'Other', value: 'other'},
-];
-
-const focusOptions = [
-  { label: 'Build Muscle', value: 'hypertrophy'},
-  { label: 'Strength', value: 'strength'},
-  { label: 'Fat Loss', value: 'fatLoss'},
-  { label: 'Overall Health', value: 'overallHealth'},
-];
-
-
+  const [selectedEquipment, setEquipment] = useState([]); // Initialize as an array
+  const [selectedDays, setSelectedDays] = useState([]); // New state for selected days
 
   // Initialize OpenAI client using API key
   const openai = new OpenAI({
     apiKey: apiKey, 
-    dangerouslyAllowBrowser: true, //keep true to allow project to work (openai security measure) 
+    dangerouslyAllowBrowser: true, // keep true to allow project to work (OpenAI security measure) 
   });
 
   // Function to generate a response from GPT-4
@@ -63,9 +45,9 @@ const focusOptions = [
       const result = await openai.chat.completions.create({
         model: 'gpt-4', //  <------- **SELECT MODEL TYPE FOR CHATGPT HERE**
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 500, //adjust token amount
-        temperature: 1, //(0.1 - 0.5) --> low temperature == safe response, not as creative
-      });                 //(0.7 - 1.0+)--> high temperature == more creative and less predictable
+        max_tokens: 2000, // adjust token amount
+        temperature: 1, // (0.1 - 0.5) --> low temperature == safe response, not as creative
+      });               // (0.7 - 1.0+)--> high temperature == more creative and less predictable
 
       setResponse(result.choices[0].message.content); // Set the response
     } catch (error) {
@@ -74,154 +56,119 @@ const focusOptions = [
     }
   };
 
-  //if button is selected, store it as the *SELECTED* variable
-  const handleGenderSelection = (button) => {setSelectedGender(button);
-  };
-
-  const handleFocusSelection = (button) => {setSelectedFocus(button);
-  };
-
-  const handleWeightChange = (value) => setWeight(value);
-
-  const handleFeetChange = (value) => setFeet(value);
-
-  const handleInchChange = (value) => setInch(value);
-
-  const handleAddEquipment = (value) => setEquipment(value);
-
   const handleSubmit = () => {
+    const equipmentList = selectedEquipment.join(', ');
+    const daysList = selectedDays.join(', ');
+    const generatedPrompt =  `
+    Create a detailed workout program for someone who is a ${selectedGender}, focusing on ${selectedFocus}.
+    They weigh ${selectedWeight} lbs, and their height is ${feet} feet ${inch} inches.
+    They want to work out on the following days: ${daysList}, make sure to include every day selected, and in order.
+    The program should specifically utilize the following equipment and nothing else: ${equipmentList}, make sure to be as creative as possible
 
-    const generatedPrompt = 
-    
-    // about the user
-    `Give the best workout program for someone who is a ${selectedGender}, wants to focus their workout program towards ${selectedFocus}.
-     They weigh about ${selectedWeight}, and their height is ${feet} feet, and ${inch} inches.
+    Please format the workout plan neatly with the following guidelines:
+    - Use headings (e.g., <h3>) to highlight each day of the week.
+    - Use <strong> tags to bold equipment names.
+    - Use unordered lists (<ul>) and list items (<li>) for exercises and steps.
 
-    Make sure the program is geared towards, and specifically utilizes all these
-    pieces of equipment and nothing else: ${selectedEquipment}, come up with creative ideas and titles for the workouts.
-    
-    
-    
-    Please provide a 5-day workout plan in a structured format with the following details:
-    - Briefly describe what the workout is geared towards and how it is personalized!!!!
-    - Use <strong> tags for bold text.
-    - Use <ul> and <li> tags to create bullet points.
-    - Number the days (Day 1, Day 2, etc.) with <strong> tags.
-    NOTE: make sure that the response fits in the cooresponding 600px response box that it is in`;
-
-
-    console.log('Generated prompt:', generatedPrompt); //USE FOR DEBUGGING --> inspect element on page and go to console
-    setPrompt(generatedPrompt)
+    Provide the workout plan in a clear and organized manner, ensuring that it is easy to follow and understand.
+  `;
+    console.log('Generated prompt:', generatedPrompt);
+    setPrompt(generatedPrompt);
   };
 
-  //useEffect to trigger response generation when prompt is succesfully updated
+  // useEffect to trigger response generation when prompt is successfully updated
   useEffect(() => {
     if (prompt) {
       generateResponse();
     } // eslint-disable-next-line
   }, [prompt]);
 
-
-  
-
   return (
     <div className="App">
 
       {/* Title */}
-      <div class = "parallax-container">
-      <div className="title-background"> 
-        <div className = "navbar-container">
-        <Button label="Home" onClick={() => ('home')}
-       />
+      <div className="parallax-container">
+        <div className="title-background"> 
+          <div className="navbar-container">
+            <Button label="Home" onClick={() => ('home')} />
+            <Button label="About" onClick={() => ('about')} />
+            <Button label="Contact" onClick={() => console.log('hi this is other')} />
+          </div>
 
-       <Button label="About" onClick={() => ('about')}
+          <div className="desc-container"> 
+          <TitleDesc />
+            </div>
 
-       />
-
-       <Button label="Contact"  onClick={() => console.log('hi this is other')}
-
-       />
-       </div>
-
-       
-       
-        <div className = "desc-container"> 
-        <TitleDesc />
+          <div className="title-container">  
+          <FlexFit_Title />
+  
+          {/* Scroll Indicator */}
+          <div className="scroll-indicator" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+            ↓
+          </div>
         </div>
 
-       
+          <div className="smalltitle-container">
+            <SmallTitle />
+          </div>
 
-
-        <div className = "title-container">    {/*eslint-disable-next-line*/}
-        <FlexFit_Title /> 
+          </div>
         </div>
-      </div>
-      </div>
 
       <section id="aboutSection">
-  <div class="betterdesc-container">
-    <BetterDesc />
-  </div>
-  <div class="smalltitle-container">
+        <div className="betterdesc-container">
+          <BetterDesc />
+          <div></div>
+
+          <div className="emoji-container">
+            <div className="emoji-item">
+              <MuscleEmoji size={48} color="#fc030b" />
+              <h1 className="big-text">Simple and Effortless</h1>
+              <p className="small-text">Enjoy a user-friendly platform that makes setting up and following your fitness plan simple and stress-free.</p>
+            </div>
+            <div className="emoji-item">
+              <LightningBoltEmoji size={48} color="#fc030b" borderColor="#ffffff" />
+              <h1 className="big-text">AI-Powered Customization</h1>
+              <p className="small-text">FlexFit's smart AI designs workouts tailored to your goals, fitness level, and available equipment for optimal results.</p>
+            </div>
+            <div className="emoji-item">
+              <GlobeEmoji size={48} color="#fc030b" borderColor="#ffffff" />
+              <h1 className="big-text">Workout Anywhere, anytime</h1>
+              <p className="small-text">Access fully customizable workouts that fit your schedule and environment, whether at home, the gym, or on the go.</p>
+            </div>
+          </div>
+        </div>
+        
+          <div className="smalltitle-instructions-container">
+            <SmallTitleInstructions />
+          
+        </div>
+      </section>
+
+      {/* Multi-Step Form */}
+      <MultiStepForm
+        selectedGender={selectedGender}
+        setSelectedGender={setSelectedGender}
+        selectedFocus={selectedFocus}
+        setSelectedFocus={setSelectedFocus}
+        selectedWeight={selectedWeight}
+        setWeight={setWeight}
+        feet={feet}
+        setFeet={setFeet}
+        inch={inch}
+        setInch={setInch}
+        selectedEquipment={selectedEquipment}
+        setEquipment={setEquipment}
+        selectedDays={selectedDays} // Pass selectedDays to MultiStepForm
+        setSelectedDays={setSelectedDays} // Pass setSelectedDays to MultiStepForm
+        handleSubmit={handleSubmit} // Pass handleSubmit as a prop
+      />
+
+      {/* Display Generated Response */}
     
-    
-    <div class="smalltitle-instructions-container">
-      <SmallTitleInstructions />
-    </div>
-  </div>
-</section>
-
-      {/* buttons for assigning gender roles */}
-      <div className="Gender-container">
-        <h3> Select Gender</h3>
-        <ItemCarousel
-          items={genderOptions}
-          onSelect={handleGenderSelection}
-          selectedItem={selectedGender}
-        />
+      <div className="response-box">
+        <div dangerouslySetInnerHTML={{ __html: response }} />
       </div>
-
-      {/* buttons for assigning goal type */}
-      <div className="GoalType-container">
-        <h3> Select Focus</h3>
-        <ItemCarousel
-          items={focusOptions}
-          onSelect={handleFocusSelection}
-          selectedItem={selectedFocus}
-        />
-      </div>
-
-      {/* assigning weight */}
-      <div className="WeightSelection-container">
-        <WeightSelection weight={selectedWeight} onChange={handleWeightChange} />
-      </div>
-
-     {/* assigning height */}
-     <div className="HeightSelection-container">
-        <FeetSelection feet={feet} onChange={handleFeetChange} />
-        <InchSelection inch={inch} onChange={handleInchChange} />
-      </div>
-    
-    {/* list for available workout equipment */}
-    <div className = "Equipment-container">
-      <AddEquipment equipment = {selectedEquipment} onChange = {handleAddEquipment}/>
-    </div>
-
-      {/* generate GPT prompt  */}
-      <div className="GeneratePrompt-container">
-        <Button label="See what works for you!" onClick={handleSubmit} />
-      </div>
-
-
-    {/* Display generated response */}
-
-      <h3>Workout Plan:</h3>
-      <div className = "response-box">
-      <div dangerouslySetInnerHTML={{__html: response}} />
-
-      </div>
-
-
 
     </div>
   );
