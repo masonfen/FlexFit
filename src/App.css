@@ -270,50 +270,6 @@ to  {
   color: #ffffff; 
 }
 
-.Gender-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 1000px;
-  margin-bottom: 50px; /*adjust for spacing between containers*/
-  gap : 50px;
-}
-
-.Gender-container .custom-button {
-  width: 150px;
-  height: 150px;
-  
-}
-
-.GoalType-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 100px;
-  margin-bottom: 20px;
-  gap: 50px;
-  
-}
-
-.WeightSelection-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.HeightSelection-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.GeneratePrompt-container{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
 
 
@@ -349,41 +305,15 @@ to  {
 
 }
 
-.carousel-item {
-  padding: 10px 20px;
-  font-size: 1.2rem;
-  text-align: center;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  height: 80px;
-  
-}
-
-.carousel-button {
-  background-color: rgba(209, 28, 25, 0.7);
-  transition: transform 0.3s ease-in-out;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  width: 40px;
-  height: 80px;
-  
-}
 
 .prev-button {
   margin-right: 10px;
 }
 
 .next-button {
-  margin-left: 10px;
+  margin-left: 500px;
 }
 
-.carousel-button:hover {
-  background-color: rgba(209, 28, 25, 1);
-
-  
-}
 
 .carousel-button:click {
   transform: scale(2);

@@ -10,6 +10,8 @@ import SmallTitle from './components/SmallTitle';
 import apiKey from './components/apiKey';
 import BetterDesc from './components/BetterDesc';
 import MultiStepForm from './components/MultiStepForm';
+import FAQ from './components/FAQ';
+import ContactModal from './components/ContactModal';
 // CHATGPT import
 import { OpenAI } from 'openai';
 
@@ -30,26 +32,29 @@ function App() {
   const [selectedWeight, setWeight] = useState('');
   const [feet, setFeet] = useState('');
   const [inch, setInch] = useState('');
-  const [selectedEquipment, setEquipment] = useState([]); // Initialize as an array
-  const [selectedDays, setSelectedDays] = useState([]); // New state for selected days
+  const [selectedEquipment, setEquipment] = useState([]); 
+  const [selectedDays, setSelectedDays] = useState([]); 
+
+  // State for contact modal
+  const [showContactModal, setShowContactModal] = useState(false);
 
   // Initialize OpenAI client using API key
   const openai = new OpenAI({
     apiKey: apiKey, 
-    dangerouslyAllowBrowser: true, // keep true to allow project to work (OpenAI security measure) 
+    dangerouslyAllowBrowser: true, 
   });
 
   // Function to generate a response from GPT-4
   const generateResponse = async () => {
     try {
       const result = await openai.chat.completions.create({
-        model: 'gpt-4', //  <------- **SELECT MODEL TYPE FOR CHATGPT HERE**
+        model: 'gpt-4', 
         messages: [{ role: 'user', content: prompt }],
-        max_tokens: 2000, // adjust token amount
-        temperature: 1, // (0.1 - 0.5) --> low temperature == safe response, not as creative
-      });               // (0.7 - 1.0+)--> high temperature == more creative and less predictable
+        max_tokens: 2000, 
+        temperature: 1, 
+      });
 
-      setResponse(result.choices[0].message.content); // Set the response
+      setResponse(result.choices[0].message.content); 
     } catch (error) {
       console.error('Error generating response:', error);
       setResponse('An error occurred while generating the response.');
@@ -92,28 +97,28 @@ function App() {
           <div className="navbar-container">
             <Button label="Home" onClick={() => ('home')} />
             <Button label="About" onClick={() => ('about')} />
-            <Button label="Contact" onClick={() => console.log('hi this is other')} />
+            {/* Show the modal when "Contact" is clicked */}
+            <Button label="Contact" onClick={() => setShowContactModal(true)} />
           </div>
 
           <div className="desc-container"> 
-          <TitleDesc />
-            </div>
+            <TitleDesc />
+          </div>
 
           <div className="title-container">  
-          <FlexFit_Title />
+            <FlexFit_Title />
   
-          {/* Scroll Indicator */}
-          <div className="scroll-indicator" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
-            ↓
+            {/* Scroll Indicator */}
+            <div className="scroll-indicator" onClick={() => window.scrollTo({ top: window.innerHeight, behavior: 'smooth' })}>
+              ↓
+            </div>
           </div>
-        </div>
 
           <div className="smalltitle-container">
             <SmallTitle />
           </div>
-
-          </div>
         </div>
+      </div>
 
       <section id="aboutSection">
         <div className="betterdesc-container">
@@ -139,12 +144,17 @@ function App() {
           </div>
         </div>
         
-          <div className="smalltitle-instructions-container">
-            <SmallTitleInstructions />
-          
+        <div className="smalltitle-instructions-container">
+          <SmallTitleInstructions />
+          <FAQ />
         </div>
       </section>
 
+      {/* Conditional rendering of the contact modal */}
+      {showContactModal && (
+        <ContactModal onClose={() => setShowContactModal(false)} />
+      )}
+      
       {/* Multi-Step Form */}
       <MultiStepForm
         selectedGender={selectedGender}
@@ -159,13 +169,12 @@ function App() {
         setInch={setInch}
         selectedEquipment={selectedEquipment}
         setEquipment={setEquipment}
-        selectedDays={selectedDays} // Pass selectedDays to MultiStepForm
-        setSelectedDays={setSelectedDays} // Pass setSelectedDays to MultiStepForm
-        handleSubmit={handleSubmit} // Pass handleSubmit as a prop
+        selectedDays={selectedDays}
+        setSelectedDays={setSelectedDays}
+        handleSubmit={handleSubmit}
       />
 
       {/* Display Generated Response */}
-    
       <div className="response-box">
         <div dangerouslySetInnerHTML={{ __html: response }} />
       </div>

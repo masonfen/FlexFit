@@ -1,0 +1,17 @@
+.faq-container h2 {
+    font-size: 1.8em;
+    margin-bottom: 5px;
+  }
+  
+  .faq-container p {
+    color: #ff0000;
+  }
+  
+  .faq-item {
+    transition: all 0.3s ease;
+  }
+  
+  .faq-item .faq-question:hover {
+    background: #ff0000;
+  }
+  
