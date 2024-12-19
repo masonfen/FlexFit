@@ -81,7 +81,7 @@ function App() {
     setPrompt(generatedPrompt);
   };
 
-  // useEffect to trigger response generation when prompt is successfully updated
+
   useEffect(() => {
     if (prompt) {
       generateResponse();

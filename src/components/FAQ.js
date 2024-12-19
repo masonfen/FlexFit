@@ -32,8 +32,8 @@ const FAQ = () => {
   };
 
   return (
-    <div className="faq-container" style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
-      <h2 style={{ textAlign: 'center' }}>Frequently Asked Questions</h2>
+    <div className="faq-container" style={{ maxWidth: '600px', margin: '0 auto', padding: '40px' }}>
+      <h2 style={{ textAlign: 'center' }}>FAQ</h2>
       <p style={{ textAlign: 'center', marginBottom: '30px' }}>Find answers to common questions about FlexFit</p>
       {faqs.map((item, index) => {
         const isOpen = openIndex === index;
