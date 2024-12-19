@@ -96,7 +96,15 @@ function App() {
         <div className="title-background"> 
           <div className="navbar-container">
             <Button label="Home" onClick={() => ('home')} />
-            <Button label="About" onClick={() => ('about')} />
+            <Button 
+            label="About" 
+            onClick={() => {
+              const aboutSection = document.getElementById('aboutSection');
+              if (aboutSection) {
+                aboutSection.scrollIntoView({ behavior: 'smooth' });
+              }
+            }} 
+          />
             {/* Show the modal when "Contact" is clicked */}
             <Button label="Contact" onClick={() => setShowContactModal(true)} />
           </div>

@@ -6,7 +6,7 @@ const ContactModal = ({ onClose }) => {
       <div style={modalStyles} onClick={(e) => e.stopPropagation()}>
         <h3>Contact Me</h3>
         <p>Feel free to email me at:</p>
-        <a href="mailto:your_email@example.com" style={linkStyles}>
+        <a href="mailto:masonfen03@gmail.com" style={linkStyles}>
           masonfen03@gmail.com
         </a>
         <button onClick={onClose}>Close</button>
