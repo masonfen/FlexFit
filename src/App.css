@@ -379,7 +379,7 @@ to  {
 }
 
 .response-box strong {
-  color: #fc030b; /* Use red for bolded text to highlight important parts */
+  color: #ff8d8d; /* Use red for bolded text to highlight important parts */
 }
 
 /* Make sure the box adjusts to the content height */

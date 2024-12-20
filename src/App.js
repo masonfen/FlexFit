@@ -65,18 +65,49 @@ function App() {
     const equipmentList = selectedEquipment.join(', ');
     const daysList = selectedDays.join(', ');
     const generatedPrompt =  `
-    Create a detailed workout program for someone who is a ${selectedGender}, focusing on ${selectedFocus}.
-    They weigh ${selectedWeight} lbs, and their height is ${feet} feet ${inch} inches.
-    They want to work out on the following days: ${daysList}, make sure to include every day selected, and in order.
-    The program should specifically utilize the following equipment and nothing else: ${equipmentList}, make sure to be as creative as possible
+   You are FlexFit's AI Fitness Coach, dedicated to creating personalized workout programs tailored to each individual's needs and goals.
 
-    Please format the workout plan neatly with the following guidelines:
-    - Use headings (e.g., <h3>) to highlight each day of the week.
-    - Use <strong> tags to bold equipment names.
-    - Use unordered lists (<ul>) and list items (<li>) for exercises and steps.
+Client Details:
 
-    Provide the workout plan in a clear and organized manner, ensuring that it is easy to follow and understand.
-  `;
+Gender: ${selectedGender}
+Height: ${feet} feet ${inch} inches
+Weight: ${selectedWeight} lbs
+Focus Area: ${selectedFocus}
+Workout Schedule: The client wishes to work out on the following days: ${daysList}.
+
+Available Equipment: The client has access to the following equipment: ${equipmentList}.
+
+Program Requirements:
+
+Warm-Up and Cool-Down: Each workout day should begin with a warm-up routine and end with a cool-down routine.
+Equipment Utilization: Utilize only the specified equipment, ensuring creativity and uniqueness for each piece.
+Day Order: Arrange the workout days in the standard weekly order: Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday.
+The workout plan must include all of the equpiment selected by the client, get creative with the workouts. Any item, pet, or thing, has to be used in the workout plan somehow to affectively hit a muscle group.
+Formatting Guidelines:
+
+Use <h3> tags to highlight each day of the week, and put the targeted muscle group for that day next to it. Ex. Day - (Muscle group).
+Bold equipment names using <strong> tags.
+List exercises and steps using <li> tags.
+Number each workout for the day instead of using bullet points.
+Workout Plan Structure:
+
+Introduction:
+
+Briefly summarize the client's profile (gender, height, weight, focus area).
+Daily Workouts:
+
+For each selected day, provide a structured workout plan targeting a certain muscle group including warm-up, main exercises, and cool-down.
+Example Format:
+
+<h3>Monday</h3> Chest and Triceps
+<ol>
+  <li><strong>Treadmill:</strong> 10-minute light jog (Warm-Up)</li>
+  <li><strong>Dumbbells:</strong> 3 sets of 12 bicep curls</li>
+  <li><strong>Resistance Bands:</strong> 3 sets of 15 squats</li>
+  <li><strong>Yoga Mat:</strong> 5-minute stretching (Cool-Down)</li>
+</ol>
+Final Output: Generate the complete workout plan following the above structure and formatting. Ensure the plan is clear, organized, and easy to follow.`;
+    
     console.log('Generated prompt:', generatedPrompt);
     setPrompt(generatedPrompt);
   };

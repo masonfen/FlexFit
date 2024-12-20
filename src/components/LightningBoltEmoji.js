@@ -9,8 +9,7 @@ function LightningBoltEmoji({ size = 48, color = '#000' }) {
         width: `${circleSize}px`,
         height: `${circleSize}px`,
         borderRadius: '50%',
-        backgroundColor: 'rgba(255, 255, 255, 1)', // 50% transparency
-
+        backgroundColor: 'rgba(255, 255, 255, 1)', 
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
