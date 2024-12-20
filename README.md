@@ -24,3 +24,9 @@ The beauty that I see within FlexFit, is that it allows the user to pick any "eq
 If you have any questions, suggestions, or support, contact me:
 masonfen03@gmail.com
 
+
+
+### Note on API Access
+Currently, FlexFit is not open to the public as the application uses the ChatGPT API, which incurs costs based on token usage. Opening this to a broader audience would require upgrading to accommodate increased demand. For now, this project is designed as a proof of concept and is best suited for local or private use.
+
+
