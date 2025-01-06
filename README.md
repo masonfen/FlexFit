@@ -26,7 +26,7 @@ masonfen03@gmail.com
 
 
 
-### Note on API Access
-Currently, FlexFit is not open to the public as the application uses the ChatGPT API, which incurs costs based on token usage. Opening this to a broader audience would require upgrading to accommodate increased demand. For now, this project is designed as a proof of concept and is best suited for local or private use.
+### WARNING
+I’m currently self-funding the ChatGPT API for FlexFit. If you’re unable to generate a workout, it’s likely because the API has reached its token limit. If you’d like to see FlexFit in action or discuss how it works, feel free to email me at masonfen03@gmail.com I’d be happy to provide a demo or share more details!
 
 
