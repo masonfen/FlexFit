@@ -40,7 +40,7 @@ exports.handler = async (event) => {
       body: JSON.stringify({
         model: "gpt-4",                // Or "gpt-3.5-turbo" if needed
         messages: [{ role: "user", content: prompt }],
-        max_tokens: 2000,
+        max_tokens: 500,
         temperature: 1,
       }),
     });
