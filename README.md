@@ -20,6 +20,8 @@ With these, FlexFit will utilize these variables to create a fun and creative wo
 The beauty that I see within FlexFit, is that it allows the user to pick any "equipment" they want and generate a workout with it. Through more machine learning experience, I would like to connect to local gyms so you can generate an effective workout using the equipment the gym offers.
 
 
+### `WEBSITE LINK`
+https://masonfen-flexfit.netlify.app/
 
 If you have any questions, suggestions, or support, contact me:
 masonfen03@gmail.com
