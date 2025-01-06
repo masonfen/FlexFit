@@ -37,6 +37,8 @@ function App() {
 
   // Function to generate a response from GPT-4 via Netlify Function
   const generateResponse = async () => {
+
+
     try {
       const result = await fetch('/.netlify/functions/generateResponse', {
         method: 'POST',
