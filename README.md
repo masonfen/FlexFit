@@ -31,4 +31,6 @@ masonfen03@gmail.com
 ### WARNING
 I’m currently self-funding the ChatGPT API for FlexFit. If you’re unable to generate a workout, it’s likely because the API has reached its token limit. If you’d like to see FlexFit in action or discuss how it works, feel free to email me!
 
+Note*** Please allow some time after putting in your metrics to receive a workout plan
+
 
