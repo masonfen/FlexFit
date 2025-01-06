@@ -145,6 +145,7 @@ Final Output: Generate the complete workout plan following the above structure a
           </div>
 
           <div className="title-container"> 
+          {/* eslint-disable-next-line react/jsx-pascal-case */}
             <FlexFit_Title />
   
             {/* Scroll Indicator */}
