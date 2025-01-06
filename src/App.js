@@ -7,13 +7,10 @@ import TitleDesc from './components/TitleDesc';
 import FlexFit_Title from './components/FlexFit_Title';
 import SmallTitleInstructions from './components/SmallTitleInstructions';
 import SmallTitle from './components/SmallTitle';
-import apiKey from './components/apiKey';
 import BetterDesc from './components/BetterDesc';
 import MultiStepForm from './components/MultiStepForm';
 import FAQ from './components/FAQ';
 import ContactModal from './components/ContactModal';
-// CHATGPT import
-import { OpenAI } from 'openai';
 
 // Emoji imports
 import LightningBoltEmoji from './components/LightningBoltEmoji';
@@ -38,23 +35,19 @@ function App() {
   // State for contact modal
   const [showContactModal, setShowContactModal] = useState(false);
 
-  // Initialize OpenAI client using API key
-  const openai = new OpenAI({
-    apiKey: apiKey, 
-    dangerouslyAllowBrowser: true, 
-  });
-
-  // Function to generate a response from GPT-4
+  // Function to generate a response from GPT-4 via Netlify Function
   const generateResponse = async () => {
     try {
-      const result = await openai.chat.completions.create({
-        model: 'gpt-4', 
-        messages: [{ role: 'user', content: prompt }],
-        max_tokens: 2000, 
-        temperature: 1, 
+      const result = await fetch('/.netlify/functions/generateResponse', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt }),
       });
 
-      setResponse(result.choices[0].message.content); 
+      const data = await result.json();
+      setResponse(data.response);
     } catch (error) {
       console.error('Error generating response:', error);
       setResponse('An error occurred while generating the response.');
@@ -64,8 +57,8 @@ function App() {
   const handleSubmit = () => {
     const equipmentList = selectedEquipment.join(', ');
     const daysList = selectedDays.join(', ');
-    const generatedPrompt =  `
-   You are FlexFit's AI Fitness Coach, dedicated to creating personalized workout programs tailored to each individual's needs and goals.
+    const generatedPrompt = `
+    You are FlexFit's AI Fitness Coach, dedicated to creating personalized workout programs tailored to each individual's needs and goals.
 
 Client Details:
 
@@ -111,7 +104,6 @@ Final Output: Generate the complete workout plan following the above structure a
     console.log('Generated prompt:', generatedPrompt);
     setPrompt(generatedPrompt);
   };
-
 
   useEffect(() => {
     if (prompt) {
