@@ -32,22 +32,25 @@ function App() {
   const [selectedEquipment, setEquipment] = useState([]); 
   const [selectedDays, setSelectedDays] = useState([]); 
 
-  // State for contact modal
+  //State for contact modal
   const [showContactModal, setShowContactModal] = useState(false);
 
-  // Function to generate a response from GPT-4 via Netlify Function
+  //Function to generate a response from GPT-4 via Netlify Function
   const generateResponse = async () => {
-
-
     try {
-      const result = await fetch('/.netlify/functions/generateResponse', {
+      const endpoint =
+        process.env.NODE_ENV === "development"
+          ? "http://localhost:8888/.netlify/functions/generateResponse"
+          : "/.netlify/functions/generateResponse";
+  
+      const result = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ prompt }),
       });
-
+  
       const data = await result.json();
       setResponse(data.response);
     } catch (error) {
@@ -55,6 +58,7 @@ function App() {
       setResponse('An error occurred while generating the response.');
     }
   };
+  
 
   const handleSubmit = () => {
     const equipmentList = selectedEquipment.join(', ');
