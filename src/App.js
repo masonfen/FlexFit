@@ -144,7 +144,7 @@ Final Output: Generate the complete workout plan following the above structure a
             <TitleDesc />
           </div>
 
-          <div className="title-container">  
+          <div className="title-container"> 
             <FlexFit_Title />
   
             {/* Scroll Indicator */}
