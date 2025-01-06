@@ -41,7 +41,7 @@ exports.handler = async (event) => {
         model: "gpt-3.5-turbo",                // Or "gpt-3.5-turbo" if needed
         messages: [{ role: "user", content: prompt }],
         max_tokens: 700,
-        temperature: 1.6,
+        temperature: 1.2,
       }),
     });
 
